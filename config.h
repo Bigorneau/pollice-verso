@@ -3,8 +3,6 @@
 
 #include <string>
 
-#include <SFML/Window.hpp>
-
 struct config_s {
 	int height;
 	int width;

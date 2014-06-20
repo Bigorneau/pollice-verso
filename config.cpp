@@ -1,4 +1,7 @@
 #include <iostream>
+
+#include <SFML/Window.hpp>
+
 #include "config.h"
 
 using namespace std;
