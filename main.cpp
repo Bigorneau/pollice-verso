@@ -1,10 +1,13 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <getopt.h>
 
+#include <iostream>
+
 #include "config.h"
 #include "game.h"
+
+using namespace std;
 
 static struct option opts[] = {
 	{"width", required_argument, 0, 'W'},
@@ -17,21 +20,17 @@ static struct option opts[] = {
 void print_usage(char * bin)
 {
 	int i;
-	printf("usage: %s", bin);
+	cout << "usage: " << endl;
+	cout << "\t" << bin;
 	for (i = 0; i < (sizeof(opts)/sizeof(opts[0]) -1); i++) {
-		switch (opts[i].has_arg) {
-		case required_argument:
-			printf(" [--%s %s]", opts[i].name, opts[i].name);
-			break;
-		case optional_argument:
-			printf(" [--%s [%s]]", opts[i].name, opts[i].name);
-			break;
-		case no_argument:
-			printf(" [--%s]", opts[i].name);
-			break;
-		}
+		cout << " [--" << opts[i].name;
+		if (opts[i].has_arg == required_argument)
+			cout << " " << opts[i].name;
+		if (opts[i].has_arg == optional_argument)
+			cout << " [" << opts[i].name << "]";
+		cout << "]";
 	}
-	printf("\n");
+	cout << endl;
 }
 
 void parse_opts(int argc, char **argv)
@@ -50,7 +49,7 @@ void parse_opts(int argc, char **argv)
 			config->width = atoi(optarg);
 			break;
 		case '?':
-			printf("? : '%s'\n", optarg);
+			cout << "?" << optarg << endl;
 			break;
 		case 'h':
 		default:
