@@ -11,7 +11,8 @@ struct config_s * get_config()
 
 int sanitize_config(struct config_s * config)
 {
-	if (!config->width || !config->height) {
+	sf::VideoMode mode(config->width, config->height);
+	if (!mode.isValid()) {
 		vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
 		/* pick first video mode */
 		if (modes.size() == 0)

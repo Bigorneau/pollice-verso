@@ -33,7 +33,7 @@ void print_usage(char * bin)
 	cout << endl;
 }
 
-void parse_opts(int argc, char **argv)
+int parse_opts(int argc, char **argv)
 {
 	int index, opt;
 	struct config_s *config = get_config();
@@ -57,13 +57,14 @@ void parse_opts(int argc, char **argv)
 			exit(EXIT_FAILURE);
 		}
 	}
-	sanitize_config(config);
+	return sanitize_config(config);
 }
 
 int main(int argc, char **argv)
 {
 	struct config_s * config = get_config();
-	parse_opts(argc, argv);
+	if (parse_opts(argc, argv) < 0)
+		return -1;
 	Game game;
 	game.run();
 	return 0;
