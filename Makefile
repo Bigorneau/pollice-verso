@@ -1,6 +1,6 @@
 CXX = g++
 CFLAGS =
-LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
+LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network
 SRCS = main.cpp game.cpp config.cpp
 BIN = pollice-verso
 
