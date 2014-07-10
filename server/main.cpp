@@ -12,7 +12,7 @@ class Server
 public:
 	Server(unsigned short port);
 	~Server();
-	int listen();
+	int run();
 private:
 	unsigned short m_port;
 	sf::TcpSocket m_socket;
@@ -27,30 +27,33 @@ Server::~Server()
 {
 }
 
-int Server::listen()
+int Server::run()
 {
 	sf::TcpListener listener;
-	listener.listen(m_port);
-	listener.accept(m_socket);
+	if (listener.listen(m_port) != sf::Socket::Done)
+		return -1;
+	if (listener.accept(m_socket) != sf::Socket::Done)
+		return -1;
 	cout << "client: " << m_socket.getRemoteAddress();
 	cout << ":" << m_socket.getRemotePort();
 
 	sf::Packet packet;
-	m_socket.receive(packet);
-
 	string message;
-	if (packet >> message)
-		cout << message << endl;
-	return 0;
-}
+	while (true) {
+		m_socket.receive(packet);
+		if (packet >> message)
+			cout << message << endl;
+		packet.clear();
+		message.clear();
+		sf::sleep(sf::milliseconds(10));
+	}
 
-void ServerLoop(void)
-{
+	return 0;
 }
 
 int main(int argc, char *argv[])
 {
 	Server s(8888);
-	s.listen();
+	s.run();
 	return 0;
 }

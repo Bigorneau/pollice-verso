@@ -27,8 +27,9 @@ int Game::run()
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)
 				window.close();
+			handleEvent(event);
 		}
-		usleep(1000);
+		sf::sleep(sf::milliseconds(100));
 	}
 
 	return 0;

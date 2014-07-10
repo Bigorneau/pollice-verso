@@ -1,6 +1,6 @@
 CXX = g++
 CFLAGS =
-LFLAGS = -lsfml-network
+LFLAGS = -lsfml-network -lsfml-system
 SRCS = main.cpp
 BIN = arena
 
