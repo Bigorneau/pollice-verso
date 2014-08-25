@@ -1,9 +1,11 @@
 #include <unistd.h>
 
+#include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Window.hpp>
 
 #include "config.h"
 #include "game.h"
+#include "unit.h"
 
 using namespace std;
 
@@ -19,7 +21,11 @@ int Game::run()
 {
 	struct config_s * config = get_config();
 	sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-	sf::Window window(sf::VideoMode(config->width, config->height, desktop.bitsPerPixel), "Pollice Verso");
+	sf::RenderWindow window(sf::VideoMode(config->width, config->height, desktop.bitsPerPixel), "Pollice Verso");
+
+	window.setFramerateLimit(60);
+
+	Unit u("resources/ak47-m4_0.png");
 
 	connect();
 	while(window.isOpen()) {
@@ -29,7 +35,14 @@ int Game::run()
 				window.close();
 			handleEvent(event);
 		}
-		sf::sleep(sf::milliseconds(100));
+
+		window.clear();
+
+		window.draw(u.getSprite());
+
+		window.display();
+
+		//sf::sleep(sf::milliseconds(100));
 	}
 
 	return 0;

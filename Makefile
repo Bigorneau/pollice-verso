@@ -1,7 +1,7 @@
 CXX = g++
 CFLAGS =
 LFLAGS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-network
-SRCS = main.cpp game.cpp config.cpp
+SRCS = main.cpp game.cpp config.cpp unit.cpp
 BIN = pollice-verso
 
 VERSION = $(shell git rev-parse HEAD)
